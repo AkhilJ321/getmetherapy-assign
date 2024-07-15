@@ -14,7 +14,7 @@ import { Dimensions } from "react-native";
 
 export default function OnboardingThird() {
   const handleNext = () => {
-    router.navigate("login");
+    router.navigate("onboarding3");
   };
   return (
     <View className="flex-1">

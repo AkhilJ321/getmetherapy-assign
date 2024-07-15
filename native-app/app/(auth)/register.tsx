@@ -11,10 +11,9 @@ import {
 } from "react-native";
 // import auth from "@react-native-firebase/auth";
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { app } from "../../firebaseConfig";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import auth from "../../firebaseConfig";
 
-const auth = getAuth(app);
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

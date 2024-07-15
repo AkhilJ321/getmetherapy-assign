@@ -10,7 +10,7 @@ import {
   ToastAndroid,
 } from "react-native";
 
-import { app } from "../../firebaseConfig";
+import auth from "../../firebaseConfig";
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -19,7 +19,6 @@ import {
 } from "firebase/auth";
 import { router } from "expo-router";
 
-const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
 const Login = () => {
@@ -105,7 +104,17 @@ const Login = () => {
             <Text className="text-black">Or Sign in with</Text>
           </View>
 
-          <View className="flex items-center justify-center"></View>
+          <View className="flex items-center justify-center">
+            <TouchableOpacity
+              onPress={handleGoogleLogin}
+              className="bg-white rounded-full p-2"
+            >
+              <Image
+                source={require("../../assets/images/google.png")}
+                style={{ width: 40, height: 40 }}
+              />
+            </TouchableOpacity>
+          </View>
 
           <View className="w-full flex-row  items-center justify-center mt-10">
             <Text className="text-black">

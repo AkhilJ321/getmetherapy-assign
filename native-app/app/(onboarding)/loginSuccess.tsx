@@ -8,6 +8,9 @@ import {
 } from "react-native";
 import { router } from "expo-router";
 
+import auth from "@/firebaseConfig";
+import { signOut } from "firebase/auth";
+
 const LoginSuccessScreen = () => {
   const handleGoToTrackingScreen = () => {
     router.navigate("tracking");
@@ -15,7 +18,12 @@ const LoginSuccessScreen = () => {
 
   const handleLogout = () => {
     // Handle logout logic
-    console.log("Logout pressed");
+    try {
+      signOut(auth);
+      router.navigate("index");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

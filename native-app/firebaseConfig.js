@@ -19,7 +19,9 @@ const firebaseConfig = {
   messagingSenderId: "15976259242",
   appId: "1:15976259242:web:f1795356232314c67c3ad3",
 };
-export const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+export default auth;
 
 // export const auth = initializeAuth(app, {
 //   persistence: getReactNativePersistence(AsyncStorage),

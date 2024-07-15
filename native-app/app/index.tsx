@@ -1,7 +1,7 @@
 /// <reference types="nativewind/types" />
-import { GoogleSignin } from "@react-native-google-signin/google-signin";
+
 import { Link, router } from "expo-router";
-import { useEffect } from "react";
+
 import {
   Text,
   View,
@@ -9,26 +9,14 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from "react-native";
-import { Dimensions } from "react-native";
-const { width, height } = Dimensions.get("window");
-const configGoogleSignIn = () => {
-  GoogleSignin.configure({
-    webClientId:
-      "997907341285-7f9v6lq9csn39n5gb9dibc16l6im01ib.apps.googleusercontent.com",
-  });
-};
 
 export default function HomeScreen() {
-  useEffect(() => {
-    configGoogleSignIn(); // will execute everytime the component mounts
-  }, []);
-
   const handleSkip = () => {
     // router.navigate("login");
     router.navigate("tracking");
   };
   const handleNext = () => {
-    router.navigate("onboarding3");
+    router.navigate("onboarding2");
   };
   return (
     <View className="flex-1">
