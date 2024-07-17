@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, Pressable, Share } from "react-native";
 import { Slider } from "@react-native-assets/slider";
 import * as Clipboard from "expo-clipboard";
 
-const BASE_URL = "https://web-d1il0nx0p-akhilj321s-projects.vercel.app";
+const BASE_URL = "https://getmetherapy-assign.vercel.app";
 console.log(BASE_URL);
 
 const Mark = ({ angle, type }: any) => {
@@ -81,7 +81,7 @@ const Clock = () => {
 
   const handleShare = async () => {
     const currentTimeStamp = currentTime.getTime();
-    const url = `${BASE_URL}/time=${currentTimeStamp}&speed=${speed}`;
+    const url = `${BASE_URL}/?time=${currentTimeStamp}&speed=${speed}`;
     try {
       // Copy URL to clipboard
       await Clipboard.setStringAsync(url);

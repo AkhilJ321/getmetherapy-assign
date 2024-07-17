@@ -71,8 +71,8 @@ const Clock = () => {
   };
 
   return (
-    <div className="container">
-      <div className="clock">
+    <div className="container flex flex-col">
+      <div className="clock mb-14">
         <div className="clock__face">{renderFaceMarks()}</div>
         <Hand
           type="hour"
@@ -82,6 +82,22 @@ const Clock = () => {
         />
         <Hand type="minutes" angle={6 * currentTime.getMinutes()} />
         <Hand type="seconds" angle={6 * currentTime.getSeconds()} />
+      </div>
+      <div className="">
+        {/* Add slider here */}
+        <label htmlFor="speed">Speed: </label>
+        <input
+          type="range"
+          min="0.1"
+          max="10"
+          step="0.1"
+          value={speed}
+          onChange={(e) => {
+            window.location.search = `?time=${currentTime.getTime()}&speed=${
+              e.target.value
+            }`;
+          }}
+        />
       </div>
     </div>
   );
