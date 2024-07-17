@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import "../styles.css";
 
@@ -11,7 +12,7 @@ import "../styles.css";
  * Functionality
  */
 
-const Mark = ({ angle, type }) => {
+const Mark = ({ angle, type }: any) => {
   return (
     <div
       className={`clock__face-mark clock__face-mark--${type}`}
@@ -28,7 +29,7 @@ const Mark = ({ angle, type }) => {
   );
 };
 
-const Hand = ({ type, angle }) => {
+const Hand = ({ type, angle }: any) => {
   return (
     <div className="clock__hand" style={{ transform: `rotate(${angle}deg)` }}>
       <div className={`clock__hand-body clock__hand-body--${type}`} />
@@ -42,13 +43,11 @@ const useQuery = () => {
 
 const Clock = () => {
   const query = useQuery();
-  const initialTime = query.get("time")
-    ? parseInt(query.get("time"), 10)
-    : Date.now();
-  const initialSpeed = query.get("speed") ? parseFloat(query.get("speed")) : 1;
+  const initialTime = parseInt(query.get("time") ?? "", 10) || Date.now();
+  const initialSpeed = query.get("speed") ? parseFloat(query.get("speed")!) : 1;
 
   const [currentTime, setCurrentTime] = useState(new Date(initialTime));
-  const [speed, setSpeed] = useState(initialSpeed);
+  const [speed] = useState(initialSpeed);
   const [endTime] = useState(new Date(initialTime - 120 * 60 * 1000));
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-package com.getmetherapy
+package com.anonymous.getmetherapy
 
 import android.os.Build
 import android.os.Bundle

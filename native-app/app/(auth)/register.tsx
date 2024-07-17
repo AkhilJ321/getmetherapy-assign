@@ -1,6 +1,6 @@
 /// <reference types="nativewind/types" />
-import { NavigationProp, RouteProp } from "@react-navigation/native";
-import React, { useState } from "react";
+
+import React, { useEffect, useState } from "react";
 import {
   View,
   TextInput,
@@ -9,10 +9,9 @@ import {
   Image,
   ScrollView,
 } from "react-native";
+import { router } from "expo-router";
 // import auth from "@react-native-firebase/auth";
-import { initializeApp } from "firebase/app";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import auth from "../../firebaseConfig";
+import auth from "@react-native-firebase/auth";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -20,13 +19,33 @@ const SignUp = () => {
   const [userName, setUsername] = useState("");
   const [isChecked, setIsChecked] = useState(false);
 
-  const handleGoogleLogin = () => {};
+  function onAuthStateChanged(user: any) {
+    console.log("auth changed", user);
+    if (user) {
+      router.navigate("loginSuccess");
+    }
+  }
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, []);
+
+  const handleGoogleSignUp = () => {};
+
+  const handleSignInPress = () => {
+    router.navigate("login");
+  };
 
   const handleRegister = async () => {
     try {
-      const res = await createUserWithEmailAndPassword(auth, email, password);
+      if (!isChecked) {
+        alert("Please agree to the terms of service and privacy policy");
+        return;
+      }
+      const res = await auth().createUserWithEmailAndPassword(email, password);
       if (res) {
-        console.log("res", res);
+        router.navigate("login");
       }
     } catch (err) {
       console.log("err", err);
@@ -35,7 +54,7 @@ const SignUp = () => {
 
   return (
     <ScrollView className="flex-1 bg-white">
-      <View className=" flex-1  mt-12 items-center">
+      <View className=" flex-1  mt-[120px] items-center">
         <View className="w-4/5">
           <View className="mb-6">
             <Text className="text-4xl font-bold text-left ">
@@ -112,7 +131,7 @@ const SignUp = () => {
           </View>
 
           <View className="flex items-center justify-center">
-            <TouchableOpacity onPress={handleGoogleLogin}>
+            <TouchableOpacity onPress={handleGoogleSignUp}>
               <Image
                 source={require("../../assets/images/google.png")}
                 style={{ width: 24, height: 24 }}
@@ -123,7 +142,7 @@ const SignUp = () => {
           <View className="w-full flex-row  items-center justify-center mt-10">
             <Text className="text-black">
               Have an account?
-              <TouchableOpacity onPress={() => {}}>
+              <TouchableOpacity onPress={handleSignInPress}>
                 <Text className="text-orange">Sign In</Text>
               </TouchableOpacity>
             </Text>

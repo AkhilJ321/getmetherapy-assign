@@ -1,4 +1,4 @@
-package com.getmetherapy
+package com.anonymous.getmetherapy
 
 import android.app.Application
 import android.content.res.Configuration

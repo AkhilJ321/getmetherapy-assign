@@ -10,33 +10,57 @@ import {
   ToastAndroid,
 } from "react-native";
 
-import auth from "../../firebaseConfig";
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithRedirect,
-} from "firebase/auth";
-import { router } from "expo-router";
+// import auth from "../../firebaseConfig";
 
-const provider = new GoogleAuthProvider();
+import { router } from "expo-router";
+import auth from "@react-native-firebase/auth";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
+
+GoogleSignin.configure({
+  webClientId:
+    "15976259242-hfp24bk087vuk3muo57dnt3n5atpnjsq.apps.googleusercontent.com",
+});
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleGoogleLogin = async () => {
+  function onAuthStateChanged(user: any) {
+    console.log("auth changed", user);
+    if (user) {
+      router.navigate("loginSuccess");
+    } else {
+      router.navigate("login");
+    }
+  }
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, []);
+
+  async function onGoogleButtonPress() {
+    // Check if your device supports Google Play
     try {
-      const res = await signInWithRedirect(auth, provider);
-      if (res) {
-        console.log("res", res);
-        router.navigate("loginSuccess");
-      }
+      await GoogleSignin.hasPlayServices({
+        showPlayServicesUpdateDialog: true,
+      });
+      console.log("Google Play Services are available");
+      // Get the users ID token
+      const { idToken } = await GoogleSignin.signIn();
+      console.log("idToken", idToken);
+
+      // Create a Google credential with the token
+      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+      // Sign-in the user with the credential
+      await auth().signInWithCredential(googleCredential);
+      router.navigate("loginSuccess");
     } catch (err) {
       console.log("err", err);
-      ToastAndroid.show("Invalid email or password", ToastAndroid.SHORT);
+      ToastAndroid.show("Error signing in with Google", ToastAndroid.SHORT);
     }
-  };
+  }
 
   const handleRegisterClick = () => {
     router.navigate("register");
@@ -44,7 +68,7 @@ const Login = () => {
   const handleLogin = async () => {
     // TODO: Handle login logic
     try {
-      const res = await signInWithEmailAndPassword(auth, email, password);
+      const res = await auth().signInWithEmailAndPassword(email, password);
       if (res) {
         console.log("res", res);
         router.navigate("loginSuccess");
@@ -57,7 +81,7 @@ const Login = () => {
 
   return (
     <View className="flex-1 bg-white">
-      <View className=" flex-1  mt-12 items-center">
+      <View className=" flex-1 mt-[200px] items-center">
         <View className="w-4/5">
           <View className="mb-6">
             <Text className="text-4xl font-bold text-left ">
@@ -106,7 +130,11 @@ const Login = () => {
 
           <View className="flex items-center justify-center">
             <TouchableOpacity
-              onPress={handleGoogleLogin}
+              onPress={() =>
+                onGoogleButtonPress().then(() =>
+                  console.log("Signed in with Google!")
+                )
+              }
               className="bg-white rounded-full p-2"
             >
               <Image

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "15976259242",
+    "project_id": "grand-drive-357008",
+    "storage_bucket": "grand-drive-357008.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:15976259242:android:4cb4422b9c1466a37c3ad3",
+        "android_client_info": {
+          "package_name": "com.anonymous.getmetherapy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "15976259242-larrr1e5jook46jrk1vlv1elpp64nsrr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.anonymous.getmetherapy",
+            "certificate_hash": "80f22e6f55d576c96702027db0563e8b470086a0"
+          }
+        },
+        {
+          "client_id": "15976259242-hfp24bk087vuk3muo57dnt3n5atpnjsq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDO_Kn-dHCj1ZFLBkWFxjVjYONZasXx3Qw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "15976259242-hfp24bk087vuk3muo57dnt3n5atpnjsq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, Pressable, Share } from "react-native";
 import { Slider } from "@react-native-assets/slider";
 import * as Clipboard from "expo-clipboard";
 
-const BASE_URL = "http://localhost:5173";
+const BASE_URL = "https://web-d1il0nx0p-akhilj321s-projects.vercel.app";
 console.log(BASE_URL);
 
 const Mark = ({ angle, type }: any) => {

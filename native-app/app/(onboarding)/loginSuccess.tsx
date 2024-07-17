@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
@@ -8,19 +8,32 @@ import {
 } from "react-native";
 import { router } from "expo-router";
 
-import auth from "@/firebaseConfig";
-import { signOut } from "firebase/auth";
+import auth from "@react-native-firebase/auth";
 
 const LoginSuccessScreen = () => {
   const handleGoToTrackingScreen = () => {
     router.navigate("tracking");
   };
 
-  const handleLogout = () => {
+  function onAuthStateChanged(user: any) {
+    console.log("auth changed", user);
+    if (user) {
+      router.navigate("loginSuccess");
+    } else {
+      router.navigate("login");
+    }
+  }
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, []);
+
+  const handleLogout = async () => {
     // Handle logout logic
     try {
-      signOut(auth);
-      router.navigate("index");
+      await auth().signOut();
+      router.navigate("login");
     } catch (err) {
       console.log(err);
     }
